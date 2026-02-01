@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport"
+      content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>Be My Valentine 💖</title>
+
+<style>
+    body {
+        margin: 0;
+        height: 100vh;
+        background: linear-gradient(135deg, #ff758c, #ff7eb3);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        font-family: system-ui, sans-serif;
+        overflow: hidden;
+    }
+
+    .container {
+        text-align: center;
+        padding: 20px;
+        position: relative;
+        z-index: 2;
+    }
+
+    .teddy {
+        font-size: 90px;
+        animation: bounce 2s infinite;
+    }
+
+    @keyframes bounce {
+        0%, 100% { transform: translateY(0); }
+        50% { transform: translateY(-12px); }
+    }
+
+    h1 {
+        color: #fff;
+        font-size: 26px;
+        margin: 20px 0 40px;
+    }
+
+    button {
+        padding: 14px 34px;
+        font-size: 18px;
+        border: none;
+        border-radius: 30px;
+        cursor: pointer;
+        touch-action: manipulation;
+    }
+
+    #yesBtn {
+        background: #28a745;
+        color: #fff;
+    }
+
+    #noBtn {
+        background: #dc3545;
+        color: #fff;
+        position: absolute;
+        animation: shake 0.4s infinite;
+    }
+
+    @keyframes shake {
+        0% { transform: translate(0,0); }
+        25% { transform: translate(-2px,2px); }
+        50% { transform: translate(2px,-2px); }
+        75% { transform: translate(-2px,-2px); }
+        100% { transform: translate(0,0); }
+    }
+
+    /* Heart rain */
+    .heart {
+        position: fixed;
+        top: -10px;
+        font-size: 22px;
+        animation: fall linear forwards;
+        z-index: 1;
+    }
+
+    @keyframes fall {
+        to {
+            transform: translateY(110vh);
+            opacity: 0;
+        }
+    }
+</style>
+</head>
+
+<body>
+
+<div class="container">
+    <div class="teddy">🧸❤️</div>
+    <h1>Will you be my Valentine? 💘</h1>
+    <button id="yesBtn">Yes 💕</button>
+    <button id="noBtn">No 💔</button>
+</div>
+
+<script>
+    const noBtn = document.getElementById("noBtn");
+    const yesBtn = document.getElementById("yesBtn");
+
+    function moveNoBtn(e) {
+        const padding = 20;
+        const maxX = window.innerWidth - noBtn.offsetWidth - padding;
+        const maxY = window.innerHeight - noBtn.offsetHeight - padding;
+
+        let x = Math.random() * maxX;
+        let y = Math.random() * maxY;
+
+        if (e) {
+            const px = e.touches ? e.touches[0].clientX : e.clientX;
+            const py = e.touches ? e.touches[0].clientY : e.clientY;
+
+            if (Math.abs(px - x) < 120) x += 150;
+            if (Math.abs(py - y) < 120) y += 150;
+        }
+
+        noBtn.style.left = Math.max(10, Math.min(x, maxX)) + "px";
+        noBtn.style.top  = Math.max(10, Math.min(y, maxY)) + "px";
+    }
+
+    // Evil No
